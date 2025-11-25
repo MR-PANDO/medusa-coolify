@@ -27,7 +27,7 @@
     "@medusajs/framework": "2.11.3",
     "@medusajs/medusa": "2.11.3",
     "@vymalo/medusa-minio": "^1.0.0"
-  }
+  },
   "devDependencies": {
     "@medusajs/test-utils": "2.11.3",
     "@swc/core": "1.5.7",
