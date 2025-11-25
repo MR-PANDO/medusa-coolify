@@ -25,28 +25,44 @@ module.exports = defineConfig({
   modules: [
     {
       resolve: "@medusajs/medusa/cache-redis",
-
       options: {
         redisUrl: process.env.REDIS_URL,
       },
     },
     {
       resolve: "@medusajs/medusa/event-bus-redis",
-
       options: {
         redisUrl: process.env.REDIS_URL,
       },
     },
     {
       resolve: "@medusajs/medusa/workflow-engine-redis",
-
       options: {
         redis: {
           url: process.env.REDIS_URL,
         },
       },
     },
+    // MinIO File Storage Configuration
+    {
+      resolve: "@medusajs/medusa/file",
+      options: {
+        providers: [
+          {
+            resolve: "@vymalo/medusa-minio",
+            id: "minio",
+            options: {
+              endpoint: process.env.MINIO_ENDPOINT,
+              cdn_url: process.env.MINIO_CDN_URL || process.env.MINIO_ENDPOINT,
+              bucket: process.env.MINIO_BUCKET,
+              private_bucket: process.env.MINIO_PRIVATE_BUCKET || process.env.MINIO_BUCKET,
+              access_key_id: process.env.MINIO_ACCESS_KEY,
+              secret_access_key: process.env.MINIO_SECRET_KEY,
+            },
+          },
+        ],
+      },
+    },
   ],
 
 });
-
