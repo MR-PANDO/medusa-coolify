@@ -1,4 +1,4 @@
-FROM node:22 AS builder
+FROM node:23 as builder
 
 WORKDIR /app/medusa
 
@@ -13,8 +13,9 @@ RUN yarn install --loglevel=error
 RUN yarn run build
 
 
-FROM node:22
+FROM node:23
 
+# Bug https://github.com/coollabsio/coolify/issues/1930
 ARG COOKIE_SECRET
 ARG JWT_SECRET
 ARG STORE_CORS
@@ -33,17 +34,21 @@ WORKDIR /app/medusa
 
 RUN mkdir .medusa
 
+# COPY package*.json .yarnrc.yml yarn.lock ./ 
+
+# COPY medusa-config.ts .
+# COPY tsconfig.json .
+
 RUN apt-get update && apt-get install -y python3 python3-pip python-is-python3
 
 COPY --from=builder /app/medusa/.medusa ./.medusa
-
-# ADD THIS LINE - Copy config file to the server directory
-COPY --from=builder /app/medusa/medusa-config.js ./.medusa/server/medusa-config.js
 
 WORKDIR /app/medusa/.medusa/server
 
 RUN yarn install --production
 
+
+# RUN medusa migrations run 
 COPY migrations.sh /app/medusa/.medusa/server/migrations.sh
 RUN chmod +x /app/medusa/.medusa/server/migrations.sh
 RUN /app/medusa/.medusa/server/migrations.sh
