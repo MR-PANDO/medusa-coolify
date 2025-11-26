@@ -1,17 +1,16 @@
-import { loadEnv, defineConfig } from "@medusajs/framework/utils";
+const { loadEnv, defineConfig } = require("@medusajs/framework/utils");
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 module.exports = defineConfig({
-
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     redisUrl: process.env.REDIS_URL,
-    workerMode: process.env.WORKER_MODE as "shared" | "worker" | "server",
+    workerMode: process.env.WORKER_MODE,
     http: {
-      storeCors: process.env.STORE_CORS!,
-      adminCors: process.env.ADMIN_CORS!,
-      authCors: process.env.AUTH_CORS!,
+      storeCors: process.env.STORE_CORS,
+      adminCors: process.env.ADMIN_CORS,
+      authCors: process.env.AUTH_CORS,
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
@@ -43,7 +42,6 @@ module.exports = defineConfig({
         },
       },
     },
-    // S3/MinIO File Storage - handles Content-Type correctly
     {
       resolve: "@medusajs/medusa/file",
       options: {
@@ -59,7 +57,7 @@ module.exports = defineConfig({
               bucket: process.env.MINIO_BUCKET,
               endpoint: process.env.MINIO_ENDPOINT,
               additional_client_config: {
-                forcePathStyle: true,  // Required for MinIO
+                forcePathStyle: true,
               },
             },
           },
@@ -67,5 +65,4 @@ module.exports = defineConfig({
       },
     },
   ],
-
 });

@@ -50,3 +50,4 @@ RUN /app/medusa/.medusa/server/migrations.sh
 RUN rm /app/medusa/.medusa/server/migrations.sh
 
 CMD ["yarn", "run", "start"]
+CMD ["yarn", "run", "start"]
