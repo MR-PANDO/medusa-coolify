@@ -56,9 +56,8 @@ module.exports = defineConfig({
               region: "us-east-1",
               bucket: process.env.MINIO_BUCKET,
               endpoint: process.env.MINIO_ENDPOINT,
-              additional_client_config: {
-                forcePathStyle: true,
-              },
+              // Try this instead of additional_client_config
+              s3_force_path_style: true,
             },
           },
         ],
