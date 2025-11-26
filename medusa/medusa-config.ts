@@ -43,21 +43,24 @@ module.exports = defineConfig({
         },
       },
     },
-    // MinIO File Storage Configuration
+    // S3/MinIO File Storage - handles Content-Type correctly
     {
       resolve: "@medusajs/medusa/file",
       options: {
         providers: [
           {
-            resolve: "@vymalo/medusa-minio",
-            id: "minio",
+            resolve: "@medusajs/file-s3",
+            id: "s3",
             options: {
-              endpoint: process.env.MINIO_ENDPOINT,
-              cdn_url: process.env.MINIO_CDN_URL || process.env.MINIO_ENDPOINT,
-              bucket: process.env.MINIO_BUCKET,
-              private_bucket: process.env.MINIO_PRIVATE_BUCKET || process.env.MINIO_BUCKET,
+              file_url: process.env.MINIO_FILE_URL,
               access_key_id: process.env.MINIO_ACCESS_KEY,
               secret_access_key: process.env.MINIO_SECRET_KEY,
+              region: "us-east-1",
+              bucket: process.env.MINIO_BUCKET,
+              endpoint: process.env.MINIO_ENDPOINT,
+              additional_client_config: {
+                forcePathStyle: true,  // Required for MinIO
+              },
             },
           },
         ],

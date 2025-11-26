@@ -1919,7 +1919,7 @@
   resolved "https://registry.npmjs.org/@medusajs/file-local/-/file-local-2.11.3.tgz"
   integrity sha512-7oqk7IAr7sxFDlzKz4rW6xYMiypXOPmv0UP5OIlNuTjQmSzrp3WqRQtuGPUQiiuwQQKPyMEXopWrb74+QEx3ew==
 
-"@medusajs/file-s3@2.11.3":
+"@medusajs/file-s3@^2.11.3", "@medusajs/file-s3@2.11.3":
   version "2.11.3"
   resolved "https://registry.npmjs.org/@medusajs/file-s3/-/file-s3-2.11.3.tgz"
   integrity sha512-CxDVreQ/brqt29v6H5V8tQhL75BUXkebQO4Hn4VR9nEK5aeh1zS19XYAcO4AI/+lR0HZMlil0IxGK5Kj7dGRhQ==
